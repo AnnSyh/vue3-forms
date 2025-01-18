@@ -1,6 +1,7 @@
 <script setup>
 import { toRef } from 'vue';
 import { useField } from 'vee-validate';
+import InputText from 'primevue/inputtext';
 
 const props = defineProps({
   type: {
@@ -53,7 +54,17 @@ const {
     :class="{ 'has-error': !!errorMessage, success: meta.valid }"
   >
     <label :for="name">{{ label }}</label>
-    <input
+
+	<InputText
+		:name="name"
+		:id="name"
+		:type="type"
+		:value="inputValue"
+		:placeholder="placeholder"
+		@input="handleChange"
+		@blur="handleBlur"
+	/>
+    <!-- <input
       :name="name"
       :id="name"
       :type="type"
@@ -61,7 +72,7 @@ const {
       :placeholder="placeholder"
       @input="handleChange"
       @blur="handleBlur"
-    />
+    /> -->
 
     <p class="help-message" v-show="errorMessage || meta.valid">
       {{ errorMessage || successMessage }}
@@ -83,14 +94,7 @@ label {
 }
 
 input {
-  border-radius: 5px;
-  border: 2px solid transparent;
-  padding: 15px 10px;
-  outline: none;
-  background-color: #f2f5f7;
   width: 100%;
-  transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out,
-    background-color 0.3s ease-in-out;
 }
 
 input:focus {
